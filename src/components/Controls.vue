@@ -1,31 +1,14 @@
 <script lang="ts">
+import {controller} from './controller.js'
+import Controls from './Controls.vue'
 export default {
   data() {
     return {
       linePlaceValue: 0,
       columnPlaceValue: undefined,
-      orientationPlaceValue: undefined
+      orientationPlaceValue: undefined,
+      controller: controller
     }
-  },
-  computed: {
-    console: () => console
-  },
-  methods: {
-    handlePlaceClick(event) {
-      console.log(`Place button clicked with line ${this.linePlaceValue}, column ${this.columnPlaceValue} and orientation ${this.orientationPlaceValue}`);
-    },
-    handleMoveClick(event) {
-      console.log("Move button clicked");
-    },
-    handleLeftClick(event) {
-      console.log("Left button clicked");
-    },
-    handleRightClick(event) {
-      console.log("Right button clicked");
-    },
-    handleReportClick(event) {
-      console.log("Report button clicked");
-    }    
   }
 }
 </script>
@@ -57,24 +40,24 @@ export default {
           </div>
 
           <div class="row">
-            <button class="w-100" @click="handlePlaceClick()">Place</button>
+            <button class="w-100" @click="this.controller.handlePlaceClick(this.linePlaceValue, this.columnPlaceValue, this.orientationPlaceValue)">Place</button>
           </div>
         </div>
 
         <div class="col" id="move-action-container">
-            <button class="w-100" @click="handleMoveClick()">Move</button>
+            <button class="w-100" @click="controller.handleMoveClick()">Move</button>
         </div>
 
         <div class="col" id="left-action-container">
-            <button class="w-100" @click="handleLeftClick()">Left</button>
+            <button class="w-100" @click="controller.handleLeftClick()">Left</button>
         </div>
 
         <div class="col" id="right-action-container">
-            <button class="w-100" @click="handleRightClick()">Right</button>
+            <button class="w-100" @click="controller.handleRightClick()">Right</button>
         </div>
 
         <div class="col" id="report-action-container">
-            <button class="w-100" @click="handleReportClick()">Report</button>
+            <button class="w-100" @click="controller.handleReportClick()">Report</button>
         </div>
       </div>
     </div>
