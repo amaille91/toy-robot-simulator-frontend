@@ -45,7 +45,7 @@ export default {
         </div>
 
         <div class="col" id="move-action-container">
-            <button class="w-100" @click="controller.handleMoveClick()">Move</button>
+            <button class="w-100" id="move-button" @click="controller.handleMoveClick()">Move</button>
         </div>
 
         <div class="col" id="left-action-container">
