@@ -71,7 +71,6 @@ describe("Controls", () => {
     const wrapper = mount(Controls);
 
     const placeButton = wrapper.find('#place-button');
-    console.error(JSON.stringify(placeButton));
     
     await wrapper.find('#place-button').trigger('click');
 
@@ -107,5 +106,10 @@ describe("Controls", () => {
     expect(controller.handleLeftClick.mock.calls.length).toBe(0);
     expect(controller.handleRightClick.mock.calls.length).toBe(0);
     expect(controller.handleReportClick.mock.calls.length).toBe(0);
+
+    // input are resetted
+    expect(wrapper.find('input[name="line-input"]').element.value).toBe("");
+    expect(wrapper.find('input[name="col-input"]').element.value).toBe("");
+    expect(wrapper.find('select[name="orientation-select"]').element.value).toBe("");
   });
 });

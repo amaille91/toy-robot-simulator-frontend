@@ -12,8 +12,13 @@ export default {
   },
   methods: {
     onPlaceClicked() {
-      if(this.linePlaceValue !== undefined && this.columnPlaceValue !== undefined && this.orientationPlaceValue !== undefined) {
-        controller.handlePlaceClick(this.linePlaceValue, this.columnPlaceValue, this.orientationPlaceValue)
+      const lineNumber = parseInt(this.linePlaceValue);
+      const colNumber = parseInt(this.columnPlaceValue);
+      if(lineNumber !== undefined && colNumber !== undefined && this.orientationPlaceValue !== undefined) {
+        controller.handlePlaceClick(lineNumber, colNumber, this.orientationPlaceValue)
+        this.linePlaceValue = undefined;
+        this.columnPlaceValue = undefined;
+        this.orientationPlaceValue = undefined;
       }
     }
   }
@@ -21,13 +26,13 @@ export default {
 </script>
 
 <template>
-    <div class="container">
+    <div class="container-fluid">
       <div class="row align-items-end">
         <div class="col" id="place-action-container">
           <div class="row pb-2">
             <div class="col-4" id="toto">
               <label for="line-input" class="row mx-auto p-0">line:</label>
-              <input type="number" id="line-input" :value="linePlaceValue" @input="event => linePlaceValue = event.target.value" placeholder="0-4" name="line-input" class="row w-100 mx-auto" />
+              <input type="number" id="line-input" v-model="linePlaceValue" placeholder="0-4" name="line-input" class="row w-100 mx-auto" />
             </div>
 
             <div class="col-4">
