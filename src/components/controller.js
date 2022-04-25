@@ -1,5 +1,6 @@
 export const controller =  {
   robotState: undefined,
+  reportMsg: undefined,
 
   handlePlaceClick(linePlaceValue, columnPlaceValue, orientationPlaceValue) {
     if(isLineInBounds(linePlaceValue) && isColInBounds(columnPlaceValue) && isOrientationValid(orientationPlaceValue)) {
@@ -64,7 +65,7 @@ export const controller =  {
     }
   },
   handleReportClick() {
-    console.log("Report button clicked");
+    this.reportMsg = `Robot is at (${this.robotState.position.line}, ${this.robotState.position.col}) and is facing ${this.robotState.orientation}`
   }    
 }
 
