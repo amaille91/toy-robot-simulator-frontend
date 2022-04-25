@@ -4,18 +4,6 @@ import { mount } from "@vue/test-utils";
 import Controls from "../Controls.vue";
 import { controller } from "../controller.js"
 
-// vi.mock('../controller.js', () => {
-//         return {
-//             controller: vi.fn(() => ({
-//                 handlePlaceClick: vi.fn(),
-//                 handleMoveClick: vi.fn(),
-//                 handleLeftClick: vi.fn(),
-//                 handleRightClick: vi.fn(),
-//                 handleReportClick: vi.fn()
-//             }))
-//         }
-//     });
-
 describe("Controls", () => {
 
   afterEach(() => {

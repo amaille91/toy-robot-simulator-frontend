@@ -10,5 +10,5 @@ export default {
 </script>
 
 <template>
-    <span v-if="controller.reportMsg">Report: {{ controller.reportMsg }}</span>
+    <span id="report-message" v-if="controller.reportMsg">Report: {{ controller.reportMsg }}</span>
 </template>
