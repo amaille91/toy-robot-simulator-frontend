@@ -1,10 +1,14 @@
-import { describe, it, expect, afterEach, vi } from "vitest";
+import { describe, it, expect, afterEach, vi, beforeEach } from "vitest";
 import { controller } from '../controller.js'
 
 const maxLineNb = 4;
 const maxColNb = 4;
 
 describe("Domain Logic", () => {
+
+    beforeEach(() => {
+        controller.robotState = undefined;
+    })
     
     it("should place the robot when placing it in the bounds of the board", () => {
         controller.handlePlaceClick(0, 0, 'N');
@@ -15,9 +19,97 @@ describe("Domain Logic", () => {
         expect(controller.robotState.orientation).toBe('N');
     })
 
-    it("should not modify robot state when robot is not placed", () => {
-        controller.handleLeftClick();
+    describe("trying to move the robot when not placed", () => {
+        it("turn left", () => {
+            controller.handleLeftClick();
+    
+            expect(controller.robotState).toBeUndefined();
+        })
+    
+        it("turn right", () => {
+            controller.handleRightClick();
+    
+            expect(controller.robotState).toBeUndefined();
+        })
+    
+        it("move", () => {
+            controller.handleMoveClick();
+    
+            expect(controller.robotState).toBeUndefined();
+        })
+    })
 
-        expect(controller.robotState).toBeUndefined();
+    describe("turning should change the orientation when the robot is placed", () => {
+        beforeEach(() => {
+            controller.robotState = {
+                position: {
+                    line: 0,
+                    col: 0
+                },
+                orientation: 'N'
+            }
+        })
+
+        it("turn left from north", () => {
+            controller.handleLeftClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 0, col: 0});
+            expect(controller.robotState.orientation).toEqual('W');
+        })
+
+        it("turn left from west", () => {
+            controller.robotState.orientation = "W"
+            controller.handleLeftClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 0, col: 0});
+            expect(controller.robotState.orientation).toEqual('S');
+        })
+
+        it("turn left from south", () => {
+            controller.robotState.orientation = "S"
+            controller.handleLeftClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 0, col: 0});
+            expect(controller.robotState.orientation).toEqual('E');
+        })
+
+        it("turn left from east", () => {
+            controller.robotState.orientation = "E"
+            controller.handleLeftClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 0, col: 0 });
+            expect(controller.robotState.orientation).toEqual('N');
+        })
+
+        it("turn right from north", () => {
+            controller.handleRightClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 0, col: 0});
+            expect(controller.robotState.orientation).toEqual('E');
+        })
+
+        it("turn right from west", () => {
+            controller.robotState.orientation = "W"
+            controller.handleRightClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 0, col: 0});
+            expect(controller.robotState.orientation).toEqual('N');
+        })
+
+        it("turn right from south", () => {
+            controller.robotState.orientation = "S"
+            controller.handleRightClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 0, col: 0});
+            expect(controller.robotState.orientation).toEqual('W');
+        })
+
+        it("turn right from east", () => {
+            controller.robotState.orientation = "E"
+            controller.handleRightClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 0, col: 0 });
+            expect(controller.robotState.orientation).toEqual('S');
+        })
     })
 })
