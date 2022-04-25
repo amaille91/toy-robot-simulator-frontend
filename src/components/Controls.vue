@@ -40,7 +40,7 @@ export default {
           </div>
 
           <div class="row">
-            <button class="w-100" @click="this.controller.handlePlaceClick(this.linePlaceValue, this.columnPlaceValue, this.orientationPlaceValue)">Place</button>
+            <button class="w-100" id="place-button" @click="this.controller.handlePlaceClick(this.linePlaceValue, this.columnPlaceValue, this.orientationPlaceValue)">Place</button>
           </div>
         </div>
 
@@ -49,15 +49,15 @@ export default {
         </div>
 
         <div class="col" id="left-action-container">
-            <button class="w-100" @click="controller.handleLeftClick()">Left</button>
+            <button class="w-100" id="left-button" @click="controller.handleLeftClick()">Left</button>
         </div>
 
         <div class="col" id="right-action-container">
-            <button class="w-100" @click="controller.handleRightClick()">Right</button>
+            <button class="w-100" id="right-button" @click="controller.handleRightClick()">Right</button>
         </div>
 
         <div class="col" id="report-action-container">
-            <button class="w-100" @click="controller.handleReportClick()">Report</button>
+            <button class="w-100" id="report-button" @click="controller.handleReportClick()">Report</button>
         </div>
       </div>
     </div>
