@@ -40,28 +40,20 @@ describe("Domain Logic", () => {
 
         it("should NOT place the robot when placing it outside the bounds of the board even if the robot is not placed", () => {
             controller.handlePlaceClick(-1, 4, 'S');
+            expect(controller.robotState).toBeUndefined();
 
+            controller.handlePlaceClick(2, -1, 'S');
+            expect(controller.robotState).toBeUndefined();
+
+            controller.handlePlaceClick(5, 4, 'S');
+            expect(controller.robotState).toBeUndefined();
+
+            controller.handlePlaceClick(2, 5, 'S');
             expect(controller.robotState).toBeUndefined();
         })
 
-    })
-
-    describe("trying to move the robot when not placed", () => {
-        it("turn left", () => {
-            controller.handleLeftClick();
-    
-            expect(controller.robotState).toBeUndefined();
-        })
-    
-        it("turn right", () => {
-            controller.handleRightClick();
-    
-            expect(controller.robotState).toBeUndefined();
-        })
-    
-        it("move", () => {
-            controller.handleMoveClick();
-    
+        it("should NOT place the robot when orientation is invalid", () => {
+            controller.handlePlaceClick(-1, 4, 'T');
             expect(controller.robotState).toBeUndefined();
         })
     })
@@ -137,6 +129,68 @@ describe("Domain Logic", () => {
     
             expect(controller.robotState.position).toEqual({ line: 0, col: 0 });
             expect(controller.robotState.orientation).toEqual('S');
+        })
+    })
+
+    describe("trying to move the robot when not placed", () => {
+        it("turn left", () => {
+            controller.handleLeftClick();
+    
+            expect(controller.robotState).toBeUndefined();
+        })
+    
+        it("turn right", () => {
+            controller.handleRightClick();
+    
+            expect(controller.robotState).toBeUndefined();
+        })
+    
+        it("move", () => {
+            controller.handleMoveClick();
+    
+            expect(controller.robotState).toBeUndefined();
+        })
+    })
+
+    describe("moving while inside the board", () => {
+
+        beforeEach(() => {
+            controller.robotState = {
+                position: { line: 1, col: 1 },
+                orientation: "N"
+            }
+        })
+
+        it("line should decrease when moving south", () => {
+            controller.robotState.orientation = "S"
+            controller.handleMoveClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 0, col: 1 });
+            expect(controller.robotState.orientation).toEqual("S");
+        })
+
+        it("line should increase when moving north", () => {
+            controller.robotState.orientation = "N"
+            controller.handleMoveClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 2, col: 1 });
+            expect(controller.robotState.orientation).toEqual("N");
+        })
+        
+        it("column should increase when moving east", () => {
+            controller.robotState.orientation = "E"
+            controller.handleMoveClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 1, col: 2 });
+            expect(controller.robotState.orientation).toEqual("E");
+        })
+        
+        it("column should decrease when moving west", () => {
+            controller.robotState.orientation = "W"
+            controller.handleMoveClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 1, col: 0 });
+            expect(controller.robotState.orientation).toEqual("S");
         })
     })
 })

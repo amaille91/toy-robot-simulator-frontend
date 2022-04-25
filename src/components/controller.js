@@ -1,15 +1,18 @@
 export const controller =  {
   robotState: undefined,
+
   handlePlaceClick(linePlaceValue, columnPlaceValue, orientationPlaceValue) {
-    console.log(`Place button clicked with line ${linePlaceValue}, column ${columnPlaceValue} and orientation ${orientationPlaceValue}`);
-    this.robotState = {
-      position: {
-        line: linePlaceValue,
-        col: columnPlaceValue
-      },
-      orientation: orientationPlaceValue
+    if(isLineInBounds(linePlaceValue) && isColInBounds(columnPlaceValue) && isOrientationValid(orientationPlaceValue)) {
+      this.robotState = {
+        position: {
+          line: linePlaceValue,
+          col: columnPlaceValue
+        },
+        orientation: orientationPlaceValue
+      }
     }
   },
+
   handleMoveClick() {
     console.log("Move button clicked");
   },
@@ -57,3 +60,11 @@ export const controller =  {
     console.log("Report button clicked");
   }    
 }
+
+const lineSize = 5;
+const colSize = 5
+let isLineInBounds = lineVal => lineVal >= 0 && lineVal < lineSize;
+
+let isColInBounds = lineVal => lineVal >= 0 && lineVal < colSize;
+
+let isOrientationValid = orientationVal =>  orientationVal === "N" || orientationVal === "E" || orientationVal === "S" || orientationVal === "W";
