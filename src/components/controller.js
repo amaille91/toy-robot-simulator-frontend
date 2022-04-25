@@ -1,4 +1,6 @@
-export const controller =  {
+import { reactive } from 'vue'
+
+export const controller =  reactive({
   robotState: undefined,
   reportMsg: undefined,
 
@@ -77,10 +79,12 @@ export const controller =  {
   },
   handleReportClick() {
     if(this.robotState) {
-      this.reportMsg = `Robot is at (${this.robotState.position.line}, ${this.robotState.position.col}) and is facing ${this.robotState.orientation}`
+      const reportStr = `Robot is at (${this.robotState.position.line}, ${this.robotState.position.col}) and is facing ${this.robotState.orientation}`;
+      console.log(`Reporting : ${reportStr}`);
+      this.reportMsg = reportStr;
     }
   }    
-}
+})
 
 const lineSize = 5;
 const colSize = 5

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Controls from './components/Controls.vue'
+import Report from './components/Report.vue'
 </script>
 
 <template>
@@ -8,6 +9,7 @@ import Controls from './components/Controls.vue'
   </header>
 
   <main>
+    <Report />
     <Controls />
   </main>
 </template>
