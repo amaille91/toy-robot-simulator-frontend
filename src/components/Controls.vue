@@ -4,10 +4,17 @@ import Controls from './Controls.vue'
 export default {
   data() {
     return {
-      linePlaceValue: 0,
+      linePlaceValue: undefined,
       columnPlaceValue: undefined,
       orientationPlaceValue: undefined,
       controller: controller
+    }
+  },
+  methods: {
+    onPlaceClicked() {
+      if(this.linePlaceValue !== undefined && this.columnPlaceValue !== undefined && this.orientationPlaceValue !== undefined) {
+        controller.handlePlaceClick(this.linePlaceValue, this.columnPlaceValue, this.orientationPlaceValue)
+      }
     }
   }
 }
@@ -18,9 +25,9 @@ export default {
       <div class="row align-items-end">
         <div class="col" id="place-action-container">
           <div class="row pb-2">
-            <div class="col-4">
+            <div class="col-4" id="toto">
               <label for="line-input" class="row mx-auto p-0">line:</label>
-              <input type="number" :value="linePlaceValue" @input="event => linePlaceValue = event.target.value" placeholder="0-4" name="line-input" class="row w-100 mx-auto">
+              <input type="number" id="line-input" :value="linePlaceValue" @input="event => linePlaceValue = event.target.value" placeholder="0-4" name="line-input" class="row w-100 mx-auto" />
             </div>
 
             <div class="col-4">
@@ -40,7 +47,7 @@ export default {
           </div>
 
           <div class="row">
-            <button class="w-100" id="place-button" @click="this.controller.handlePlaceClick(this.linePlaceValue, this.columnPlaceValue, this.orientationPlaceValue)">Place</button>
+            <button class="w-100" id="place-button" @click="this.onPlaceClicked()">Place</button>
           </div>
         </div>
 

@@ -69,6 +69,9 @@ describe("Controls", () => {
     vi.mock('../controller.js');
 
     const wrapper = mount(Controls);
+
+    const placeButton = wrapper.find('#place-button');
+    console.error(JSON.stringify(placeButton));
     
     await wrapper.find('#place-button').trigger('click');
 
@@ -78,7 +81,7 @@ describe("Controls", () => {
     expect(controller.handleRightClick.mock.calls.length).toBe(0);
     expect(controller.handleReportClick.mock.calls.length).toBe(0);
 
-    await wrapper.find('[name="line-inupt"]').setValue(0);
+    await wrapper.find('input[name="line-input"]').setValue(0);
     await wrapper.find('#place-button').trigger('click');
 
     expect(controller.handlePlaceClick.mock.calls.length).toBe(0);
@@ -87,7 +90,7 @@ describe("Controls", () => {
     expect(controller.handleRightClick.mock.calls.length).toBe(0);
     expect(controller.handleReportClick.mock.calls.length).toBe(0);
 
-    await wrapper.find('[name="col-input"]').setValue(0);
+    await wrapper.find('input[name="col-input"]').setValue(0);
     await wrapper.find('#place-button').trigger('click');
 
     expect(controller.handlePlaceClick.mock.calls.length).toBe(0);
@@ -96,7 +99,7 @@ describe("Controls", () => {
     expect(controller.handleRightClick.mock.calls.length).toBe(0);
     expect(controller.handleReportClick.mock.calls.length).toBe(0);
 
-    await wrapper.find('[name="orientation-select"]').setValue(N);
+    await wrapper.find('select[name="orientation-select"]').setValue("N");
     await wrapper.find('#place-button').trigger('click');
 
     expect(controller.handlePlaceClick.mock.calls.length).toBe(1);
