@@ -19,13 +19,13 @@ export default {
         <div class="col" id="place-action-container">
           <div class="row pb-2">
             <div class="col-4">
-              <label for="line-select" class="row mx-auto p-0">line:</label>
-              <input type="number" :value="linePlaceValue" @input="event => linePlaceValue = event.target.value" placeholder="0-4" name="line-select" class="row w-100 mx-auto">
+              <label for="line-input" class="row mx-auto p-0">line:</label>
+              <input type="number" :value="linePlaceValue" @input="event => linePlaceValue = event.target.value" placeholder="0-4" name="line-input" class="row w-100 mx-auto">
             </div>
 
             <div class="col-4">
-              <label for="col-select" class="row mx-auto p-0">column:</label>
-              <input type="number" v-model="columnPlaceValue" placeholder="0-4" name="col-select" class="row w-100 mx-auto">
+              <label for="col-input" class="row mx-auto p-0">column:</label>
+              <input type="number" v-model="columnPlaceValue" placeholder="0-4" name="col-input" class="row w-100 mx-auto">
             </div>
 
             <div class="col-4">

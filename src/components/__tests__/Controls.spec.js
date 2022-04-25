@@ -67,10 +67,39 @@ describe("Controls", () => {
 
   it("should NOT call controller.handlePlaceClick when clicking on place button and any input is empty", async () => {
     vi.mock('../controller.js');
+
+    const wrapper = mount(Controls);
     
-    await mount(Controls).find('#place-button').trigger('click');
+    await wrapper.find('#place-button').trigger('click');
 
     expect(controller.handlePlaceClick.mock.calls.length).toBe(0);
+    expect(controller.handleMoveClick.mock.calls.length).toBe(0);
+    expect(controller.handleLeftClick.mock.calls.length).toBe(0);
+    expect(controller.handleRightClick.mock.calls.length).toBe(0);
+    expect(controller.handleReportClick.mock.calls.length).toBe(0);
+
+    await wrapper.find('[name="line-inupt"]').setValue(0);
+    await wrapper.find('#place-button').trigger('click');
+
+    expect(controller.handlePlaceClick.mock.calls.length).toBe(0);
+    expect(controller.handleMoveClick.mock.calls.length).toBe(0);
+    expect(controller.handleLeftClick.mock.calls.length).toBe(0);
+    expect(controller.handleRightClick.mock.calls.length).toBe(0);
+    expect(controller.handleReportClick.mock.calls.length).toBe(0);
+
+    await wrapper.find('[name="col-input"]').setValue(0);
+    await wrapper.find('#place-button').trigger('click');
+
+    expect(controller.handlePlaceClick.mock.calls.length).toBe(0);
+    expect(controller.handleMoveClick.mock.calls.length).toBe(0);
+    expect(controller.handleLeftClick.mock.calls.length).toBe(0);
+    expect(controller.handleRightClick.mock.calls.length).toBe(0);
+    expect(controller.handleReportClick.mock.calls.length).toBe(0);
+
+    await wrapper.find('[name="orientation-select"]').setValue(N);
+    await wrapper.find('#place-button').trigger('click');
+
+    expect(controller.handlePlaceClick.mock.calls.length).toBe(1);
     expect(controller.handleMoveClick.mock.calls.length).toBe(0);
     expect(controller.handleLeftClick.mock.calls.length).toBe(0);
     expect(controller.handleRightClick.mock.calls.length).toBe(0);
