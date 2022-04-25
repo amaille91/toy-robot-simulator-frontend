@@ -15,7 +15,26 @@ export const controller =  {
 
   handleMoveClick() {
     console.log("Move button clicked");
+    if(this.robotState !== undefined) {
+      switch (this.robotState.orientation) {
+        case "N":
+          this.robotState.position.line++;
+          break;
+        case "W":
+          this.robotState.position.col--;
+          break;
+        case "S":
+          this.robotState.position.line--;
+          break;
+        case "E":
+          this.robotState.position.col++;
+          break;
+        default:
+          console.error("unknown orientation");
+      }
+    }
   },
+
   handleLeftClick() {
     if(this.robotState !== undefined) {
       switch (this.robotState.orientation) {
