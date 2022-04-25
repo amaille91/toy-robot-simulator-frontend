@@ -21,4 +21,21 @@ describe("App", () => {
     await wrapper.find('#report-button').trigger('click');
     expect(wrapper.find('#report-message').text()).toEqual('Report: Robot is at (1, 0) and is facing N')
   });
+
+  it("should face west when turning left from (0, 0) facing north", async () => {
+    const wrapper = mount(App);
+    expect(wrapper.find('.container-fluid').exists()).toBe(true);
+    await wrapper.find('#line-input').setValue(0);
+    await wrapper.find('input[name="col-input"]').setValue(0);
+    await wrapper.find('select[name="orientation-select"]').setValue('N');
+
+    await wrapper.find('#place-button').trigger('click');
+    expect(wrapper.find('#grid-place-0-0 #svg-north').exists()).toBe(true);
+
+    await wrapper.find('#left-button').trigger('click');
+    expect(wrapper.find('#grid-place-0-0 #svg-west').exists()).toBe(true);
+
+    await wrapper.find('#report-button').trigger('click');
+    expect(wrapper.find('#report-message').text()).toEqual('Report: Robot is at (0, 0) and is facing W')
+  });
 });
