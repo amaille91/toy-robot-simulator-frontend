@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Controls from './components/Controls.vue'
 import Report from './components/Report.vue'
+import RobotGrid from './components/RobotGrid.vue'
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import Report from './components/Report.vue'
   </header>
 
   <main>
+    <RobotGrid />
     <Report />
     <Controls />
   </main>
