@@ -239,4 +239,18 @@ describe("Domain Logic", () => {
             expect(controller.robotState.orientation).toEqual("E");
         })
     })
+
+    describe("reporting", () => {
+
+        it("should update the report string", () => {
+            controller.robotState = {
+                position: { line: 3, col: 1 },
+                orientation: "N"
+            };
+
+            controller.handleReportClick();
+
+            expect(controller.reportMsg).toEqual("Robot is at (3, 1) and is facing N");
+        })
+    })
 })
