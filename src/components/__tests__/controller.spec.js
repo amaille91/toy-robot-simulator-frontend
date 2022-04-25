@@ -190,7 +190,53 @@ describe("Domain Logic", () => {
             controller.handleMoveClick();
     
             expect(controller.robotState.position).toEqual({ line: 1, col: 0 });
+            expect(controller.robotState.orientation).toEqual("W");
+        })
+    })
+
+    describe("moving outside the board should not alter the robot's position", () => {
+
+        it("robot should not be able to move when on the first line and trying to move south", () => {
+            controller.robotState = {
+                position: { line: 0, col: 2 },
+                orientation: "S"
+            }
+            controller.handleMoveClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 0, col: 2 });
             expect(controller.robotState.orientation).toEqual("S");
+        })
+
+        it("robot should not be able to move when on the first column and trying to move west", () => {
+            controller.robotState = {
+                position: { line: 2, col: 0 },
+                orientation: "W"
+            }
+            controller.handleMoveClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 2, col: 0 });
+            expect(controller.robotState.orientation).toEqual("W");
+        })
+        it("robot should not be able to move when on the last line and trying to move north", () => {
+            controller.robotState = {
+                position: { line: 4, col: 2 },
+                orientation: "N"
+            }
+            controller.handleMoveClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 4, col: 2 });
+            expect(controller.robotState.orientation).toEqual("N");
+        })
+
+        it("robot should not be able to move when on the last column and trying to move east", () => {
+            controller.robotState = {
+                position: { line: 2, col: 4 },
+                orientation: "E"
+            }
+            controller.handleMoveClick();
+    
+            expect(controller.robotState.position).toEqual({ line: 2, col: 4 });
+            expect(controller.robotState.orientation).toEqual("E");
         })
     })
 })

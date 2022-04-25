@@ -16,21 +16,9 @@ export const controller =  {
   handleMoveClick() {
     console.log("Move button clicked");
     if(this.robotState !== undefined) {
-      switch (this.robotState.orientation) {
-        case "N":
-          this.robotState.position.line++;
-          break;
-        case "W":
-          this.robotState.position.col--;
-          break;
-        case "S":
-          this.robotState.position.line--;
-          break;
-        case "E":
-          this.robotState.position.col++;
-          break;
-        default:
-          console.error("unknown orientation");
+      const newPosition = computeNewPosition(this.robotState)
+      if(isLineInBounds(newPosition.line) && isColInBounds(newPosition.col)) {
+        this.robotState.position = newPosition;
       }
     }
   },
@@ -87,3 +75,18 @@ let isLineInBounds = lineVal => lineVal >= 0 && lineVal < lineSize;
 let isColInBounds = lineVal => lineVal >= 0 && lineVal < colSize;
 
 let isOrientationValid = orientationVal =>  orientationVal === "N" || orientationVal === "E" || orientationVal === "S" || orientationVal === "W";
+
+let computeNewPosition = state => {
+  switch (state.orientation) {
+    case "N":
+      return { line: state.position.line + 1, col: state.position.col }
+    case "W":
+      return { line: state.position.line, col: state.position.col - 1 }
+    case "S":
+      return { line: state.position.line - 1, col: state.position.col }
+    case "E":
+      return { line: state.position.line, col: state.position.col + 1 }
+    default:
+      console.error("unknown orientation");
+  }
+}
