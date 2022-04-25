@@ -11,6 +11,8 @@ export const controller =  {
         },
         orientation: orientationPlaceValue
       }
+
+      this.reportMsg = undefined;
     }
   },
 
@@ -20,6 +22,7 @@ export const controller =  {
       const newPosition = computeNewPosition(this.robotState)
       if(isLineInBounds(newPosition.line) && isColInBounds(newPosition.col)) {
         this.robotState.position = newPosition;
+        this.reportMsg = undefined;
       }
     }
   },
@@ -29,15 +32,19 @@ export const controller =  {
       switch (this.robotState.orientation) {
         case "N":
           this.robotState.orientation = "W";
+          this.reportMsg = undefined;
           break;
         case "W":
           this.robotState.orientation = "S";
+          this.reportMsg = undefined;
           break;
         case "S":
           this.robotState.orientation = "E";
+          this.reportMsg = undefined;
           break;
         case "E":
           this.robotState.orientation = "N";
+          this.reportMsg = undefined;
           break;
         default:
           console.error("unknown orientation");
@@ -49,15 +56,19 @@ export const controller =  {
       switch (this.robotState.orientation) {
         case "N":
           this.robotState.orientation = "E";
+          this.reportMsg = undefined;
           break;
         case "W":
           this.robotState.orientation = "N";
+          this.reportMsg = undefined;
           break;
         case "S":
           this.robotState.orientation = "W";
+          this.reportMsg = undefined;
           break;
         case "E":
           this.robotState.orientation = "S";
+          this.reportMsg = undefined;
           break;
         default:
           console.error("unknown orientation");
@@ -65,7 +76,9 @@ export const controller =  {
     }
   },
   handleReportClick() {
-    this.reportMsg = `Robot is at (${this.robotState.position.line}, ${this.robotState.position.col}) and is facing ${this.robotState.orientation}`
+    if(this.robotState) {
+      this.reportMsg = `Robot is at (${this.robotState.position.line}, ${this.robotState.position.col}) and is facing ${this.robotState.orientation}`
+    }
   }    
 }
 

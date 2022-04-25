@@ -8,6 +8,7 @@ describe("Domain Logic", () => {
 
     beforeEach(() => {
         controller.robotState = undefined;
+        controller.reportMsg = undefined;
     })
     
     describe("Placing the robot", () => {
@@ -251,6 +252,32 @@ describe("Domain Logic", () => {
             controller.handleReportClick();
 
             expect(controller.reportMsg).toEqual("Robot is at (3, 1) and is facing N");
+        })
+
+        it("should NOT update the report string if robot state is undefined", () => {
+            controller.robotState = undefined;
+            controller.handleReportClick();
+
+            expect(controller.reportMsg).toBeUndefined();
+        })
+
+        it("report message should be resetted when placing or moving the robot", () => {
+            controller.reportMsg = "toto";
+            controller.handlePlaceClick(1, 1, "N");
+
+            expect(controller.reportMsg).toBeUndefined();
+
+            controller.reportMsg = "toto";
+            controller.handleMoveClick();
+            expect(controller.reportMsg).toBeUndefined();
+
+            controller.reportMsg = "toto";
+            controller.handleLeftClick();
+            expect(controller.reportMsg).toBeUndefined();
+
+            controller.reportMsg = "toto";
+            controller.handleRightClick();
+            expect(controller.reportMsg).toBeUndefined();
         })
     })
 })
