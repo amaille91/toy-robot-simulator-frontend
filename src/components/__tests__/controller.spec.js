@@ -10,13 +10,40 @@ describe("Domain Logic", () => {
         controller.robotState = undefined;
     })
     
-    it("should place the robot when placing it in the bounds of the board", () => {
-        controller.handlePlaceClick(0, 0, 'N');
+    describe("Placing the robot", () => {
+        
+        it("should place the robot when placing it in the bounds of the board", () => {
+            controller.handlePlaceClick(0, 0, 'N');
 
-        expect(controller.robotState).toBeDefined();
-        expect(controller.robotState.position.line).toBe(0);
-        expect(controller.robotState.position.col).toBe(0);
-        expect(controller.robotState.orientation).toBe('N');
+            expect(controller.robotState).toBeDefined();
+            expect(controller.robotState.position.line).toBe(0);
+            expect(controller.robotState.position.col).toBe(0);
+            expect(controller.robotState.orientation).toBe('N');
+        })
+
+        it("should place the robot when placing it in the bounds of the board even if the robot is already placed", () => {
+            controller.robotState = {
+                position: {
+                    line: 0,
+                    col: 0
+                },
+                orientation: "N"
+            };
+
+            controller.handlePlaceClick(2, 4, 'S');
+
+            expect(controller.robotState).toBeDefined();
+            expect(controller.robotState.position.line).toBe(2);
+            expect(controller.robotState.position.col).toBe(4);
+            expect(controller.robotState.orientation).toBe('S');
+        })
+
+        it("should NOT place the robot when placing it outside the bounds of the board even if the robot is not placed", () => {
+            controller.handlePlaceClick(-1, 4, 'S');
+
+            expect(controller.robotState).toBeUndefined();
+        })
+
     })
 
     describe("trying to move the robot when not placed", () => {
